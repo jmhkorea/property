@@ -1,0 +1,95 @@
+{
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "PropertyMinted",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "approve",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "internalType": "string",
+          "name": "propertyAddress",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "squareMeters",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "propertyType",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "appraisedValue",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "ipfsDocumentURI",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "latitude",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "longitude",
+          "type": "string"
+        }
+      ],
+      "name": "mint",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ]
+} 

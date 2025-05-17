@@ -1,0 +1,37 @@
+{
+  "name": "avalanche-real-estate",
+  "version": "1.0.0",
+  "description": "부동산 토큰화 플랫폼 on Avalanche",
+  "main": "index.js",
+  "scripts": {
+    "test": "hardhat test",
+    "compile": "hardhat compile",
+    "deploy:fuji": "hardhat run scripts/deploy.js --network fuji",
+    "deploy:mainnet": "hardhat run scripts/deploy.js --network mainnet",
+    "start:backend": "cd backend && npm start",
+    "start:frontend": "cd frontend && npm start",
+    "dev": "concurrently \"npm run start:backend\" \"npm run start:frontend\""
+  },
+  "keywords": [
+    "avalanche",
+    "blockchain",
+    "real-estate",
+    "tokenization",
+    "nft"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.6",
+    "@nomiclabs/hardhat-waffle": "^2.0.3",
+    "@openzeppelin/contracts": "^4.7.0",
+    "chai": "^4.3.6",
+    "ethereum-waffle": "^3.4.4",
+    "ethers": "^5.6.9",
+    "hardhat": "^2.10.0",
+    "dotenv": "^16.0.1"
+  },
+  "dependencies": {
+    "concurrently": "^7.3.0"
+  }
+} 
