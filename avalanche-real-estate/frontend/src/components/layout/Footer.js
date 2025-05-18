@@ -26,22 +26,32 @@ const Footer = () => {
               <ul className="space-y-2">
                 <li>
                   <Link to="/properties" className="text-gray-300 hover:text-white text-sm transition-colors duration-200">
-                    부동산 목록
+                    마켓플레이스
                   </Link>
                 </li>
                 <li>
-                  <Link to="/market" className="text-gray-300 hover:text-white text-sm transition-colors duration-200">
-                    지분 마켓
+                  <Link to="/my-portfolio" className="text-gray-300 hover:text-white text-sm transition-colors duration-200">
+                    내 포트폴리오
                   </Link>
                 </li>
                 <li>
-                  <Link to="/analytics" className="text-gray-300 hover:text-white text-sm transition-colors duration-200">
-                    시장 분석
+                  <Link to="/defi" className="text-gray-300 hover:text-white text-sm transition-colors duration-200">
+                    DeFi
                   </Link>
                 </li>
                 <li>
-                  <Link to="/register-property" className="text-gray-300 hover:text-white text-sm transition-colors duration-200">
-                    부동산 등록
+                  <Link to="/nft" className="text-gray-300 hover:text-white text-sm transition-colors duration-200">
+                    NFT
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/learn" className="text-gray-300 hover:text-white text-sm transition-colors duration-200">
+                    학습하기
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/dashboard" className="text-gray-300 hover:text-white text-sm transition-colors duration-200">
+                    대시보드
                   </Link>
                 </li>
               </ul>

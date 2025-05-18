@@ -25,6 +25,26 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>아발란체 부동산 토큰화 플랫폼</title>
+    
+    <!-- GitHub Pages에서 SPA 리다이렉션 처리 -->
+    <script type="text/javascript">
+      // 메인 도메인에서 /property로 리다이렉션
+      if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+        window.location.replace('/property');
+      }
+      
+      // SPA 라우팅 처리
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) { 
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null,
+              l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location))
+    </script>
   </head>
   <body>
     <noscript>이 앱을 실행하려면 JavaScript를 활성화해야 합니다.</noscript>

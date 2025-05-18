@@ -86,7 +86,8 @@ const Auth = () => {
       if (isLogin) {
         // 로그인 처리
         await login(formData.email, formData.password);
-        // 성공 시 자동으로 AuthContext에서 리디렉션 처리
+        // 로그인 성공 시 원래 접근하려던 페이지로 이동
+        navigate(from);
       } else {
         // 회원가입 처리
         await register({
@@ -94,7 +95,8 @@ const Auth = () => {
           email: formData.email,
           password: formData.password
         });
-        // 성공 시 자동으로 AuthContext에서 리디렉션 처리
+        // 회원가입 성공 시 원래 접근하려던 페이지로 이동
+        navigate(from);
       }
     } catch (error) {
       // 오류는 AuthContext에서 이미 처리됨
@@ -102,13 +104,19 @@ const Auth = () => {
     }
   };
   
-  // 로그인/회원가입 모드 전환
+  // 로그인/회원가입 모드 전환(이전 페이지 정보 유지)
   const toggleAuthMode = () => {
-    navigate(isLogin ? '/register' : '/login');
+    navigate(isLogin ? '/register' : '/login', { state: { from } });
+  };
+  
+  // 로그인 없이 둘러보기
+  const handleSkipAuth = () => {
+    navigate('/properties');
   };
   
   return (
     <div className="min-h-screen flex">
+      {/* 왼쪽 패널: 인증 폼 */}
       <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-20 xl:px-24 bg-white">
         <div className="mx-auto w-full max-w-sm lg:max-w-md">
           <div className="text-center mb-8">
@@ -254,27 +262,28 @@ const Auth = () => {
                     </div>
 
                     <div className="text-sm">
-                      <Link to="/forgot-password" className="font-medium text-indigo-600 hover:text-indigo-500">
+                      <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
                         비밀번호를 잊으셨나요?
-                      </Link>
+                      </a>
                     </div>
                   </div>
                 )}
 
-                {/* 제출 버튼 */}
                 <div>
                   <button
                     type="submit"
                     disabled={loading}
-                    className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200 ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
+                    className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 relative"
                   >
                     {loading ? (
                       <>
-                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        처리 중...
+                        <span className="absolute inset-0 flex items-center justify-center">
+                          <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                        </span>
+                        <span className="opacity-0">{isLogin ? '로그인' : '회원가입'}</span>
                       </>
                     ) : (
                       isLogin ? '로그인' : '회원가입'
@@ -286,62 +295,83 @@ const Auth = () => {
               <div className="mt-6">
                 <div className="relative">
                   <div className="absolute inset-0 flex items-center">
-                    <div className="w-full border-t border-gray-300" />
+                    <div className="w-full border-t border-gray-300"></div>
                   </div>
                   <div className="relative flex justify-center text-sm">
-                    <span className="px-2 bg-white text-gray-500">또는</span>
+                    <span className="px-2 bg-white text-gray-500">
+                      또는
+                    </span>
                   </div>
                 </div>
 
                 <div className="mt-6 grid grid-cols-1 gap-3">
-                  <div>
-                    <button
-                      onClick={toggleAuthMode}
-                      className="w-full inline-flex justify-center py-3 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200"
-                    >
-                      {isLogin ? '새 계정 만들기' : '기존 계정으로 로그인하기'}
-                    </button>
-                  </div>
+                  <button
+                    onClick={handleSkipAuth}
+                    className="w-full flex items-center justify-center py-3 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                    <span>회원가입 없이 둘러보기</span>
+                  </button>
                 </div>
               </div>
+
+              <p className="mt-6 text-center text-sm text-gray-600">
+                {isLogin ? '계정이 없으신가요?' : '이미 계정이 있으신가요?'}
+                <button
+                  type="button"
+                  onClick={toggleAuthMode}
+                  className="ml-1 font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none"
+                >
+                  {isLogin ? '회원가입' : '로그인'}
+                </button>
+              </p>
             </div>
           </div>
         </div>
       </div>
-      <div className="hidden lg:block relative w-0 flex-1 bg-gradient-to-br from-blue-900 via-indigo-800 to-purple-800">
-        <div className="absolute inset-0 bg-opacity-40">
-          <div className="absolute inset-0 z-0 opacity-20">
-            <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-              <defs>
-                <pattern id="grid" width="8" height="8" patternUnits="userSpaceOnUse">
-                  <path d="M 8 0 L 0 0 0 8" fill="none" stroke="white" strokeWidth="0.5" />
-                </pattern>
-              </defs>
-              <rect width="100" height="100" fill="url(#grid)" />
-            </svg>
-          </div>
-          <div className="absolute inset-0 z-10 flex items-center justify-center p-12">
-            <div className="max-w-2xl text-center">
-              <h2 className="text-4xl font-extrabold text-white sm:text-5xl">
-                블록체인 기술로 <span className="text-blue-300">혁신적인</span><br /> 부동산 투자를 경험하세요
-              </h2>
-              <p className="mt-4 text-lg text-blue-100">
-                아발란체 블록체인을 활용한 부동산 토큰화 플랫폼에서<br />
-                소액으로도 전문적인 부동산 투자를 시작하고<br />
-                실시간으로 수익을 확인하세요.
-              </p>
-              <div className="mt-8 flex flex-col space-y-3 sm:space-y-0 sm:flex-row sm:space-x-4 justify-center">
-                <div className="flex items-center bg-white bg-opacity-10 backdrop-filter backdrop-blur-sm px-6 py-3 rounded-lg text-white border border-white border-opacity-20">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      
+      {/* 오른쪽 패널: 부동산 투자 정보 */}
+      <div className="hidden lg:block lg:flex-1 bg-gradient-to-br from-blue-500 to-indigo-700 relative">
+        <div className="absolute inset-0 flex flex-col justify-center items-center text-white p-12">
+          <div className="max-w-md text-center">
+            <h2 className="text-4xl font-bold mb-6 animate-fade-in">블록체인 기술로 혁신적인 부동산 투자를 경험하세요</h2>
+            <div className="space-y-8">
+              <div className="flex items-center animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+                <div className="rounded-full bg-white bg-opacity-20 p-3 mr-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                   </svg>
-                  안전한 블록체인 기술
                 </div>
-                <div className="flex items-center bg-white bg-opacity-10 backdrop-filter backdrop-blur-sm px-6 py-3 rounded-lg text-white border border-white border-opacity-20">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="text-left">
+                  <h3 className="text-xl font-semibold mb-1">안전한 블록체인 기술</h3>
+                  <p className="text-blue-100">소액으로도 전문적인 부동산 투자를 시작하세요.</p>
+                </div>
+              </div>
+              
+              <div className="flex items-center animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+                <div className="rounded-full bg-white bg-opacity-20 p-3 mr-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  소액으로 시작하는 투자
+                </div>
+                <div className="text-left">
+                  <h3 className="text-xl font-semibold mb-1">소액으로 시작하는 투자</h3>
+                  <p className="text-blue-100">원하는 만큼만 투자하고 수익을 창출하세요.</p>
+                </div>
+              </div>
+              
+              <div className="flex items-center animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+                <div className="rounded-full bg-white bg-opacity-20 p-3 mr-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                </div>
+                <div className="text-left">
+                  <h3 className="text-xl font-semibold mb-1">투명한 거래 기록</h3>
+                  <p className="text-blue-100">모든 거래가 블록체인에 기록되어 안전하게 보관됩니다.</p>
                 </div>
               </div>
             </div>

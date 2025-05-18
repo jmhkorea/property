@@ -21,6 +21,10 @@ import RegisterProperty from './pages/RegisterProperty';
 import TokenizeProperty from './pages/TokenizeProperty';
 import PropertyValuation from './pages/PropertyValuation';
 import IncomeDistribution from './pages/IncomeDistribution';
+import DeFi from './pages/DeFi';
+import NFT from './pages/NFT';
+import MyPortfolio from './pages/MyPortfolio';
+import Learn from './pages/Learn';
 import NotFound from './pages/NotFound';
 
 // 인증이 필요한 라우트를 위한 래퍼 컴포넌트
@@ -38,7 +42,7 @@ const PrivateRoute = ({ children }) => {
 
 function App() {
   return (
-    <Router>
+    <Router basename="/property">
       <AuthProvider>
         <WalletProvider>
           <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
@@ -52,6 +56,7 @@ function App() {
                 <Route path="/register" element={<Auth />} />
                 <Route path="/properties" element={<PropertiesList />} />
                 <Route path="/property/:id" element={<PropertyDetail />} />
+                <Route path="/learn" element={<Learn />} />
                 
                 {/* 인증이 필요한 라우트 */}
                 <Route 
@@ -59,6 +64,14 @@ function App() {
                   element={
                     <PrivateRoute>
                       <Dashboard />
+                    </PrivateRoute>
+                  } 
+                />
+                <Route 
+                  path="/my-portfolio" 
+                  element={
+                    <PrivateRoute>
+                      <MyPortfolio />
                     </PrivateRoute>
                   } 
                 />
@@ -94,6 +107,10 @@ function App() {
                     </PrivateRoute>
                   } 
                 />
+                
+                {/* DeFi와 NFT 페이지 */}
+                <Route path="/defi" element={<DeFi />} />
+                <Route path="/nft" element={<NFT />} />
                 
                 {/* 404 페이지 */}
                 <Route path="*" element={<NotFound />} />

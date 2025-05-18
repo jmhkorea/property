@@ -2,5 +2,8 @@
   "dependencies": {
     "bootstrap": "^5.3.6",
     "react-bootstrap": "^2.10.10"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
   }
 }

@@ -9,6 +9,9 @@ const apiClient = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  // GitHub Pages 환경에서 CORS 문제 우회를 위한 설정
+  withCredentials: false,
+  timeout: 5000, // 5초 타임아웃 설정
 });
 
 // 요청 인터셉터 - 인증 토큰 추가
@@ -21,6 +24,7 @@ apiClient.interceptors.request.use(
     return config;
   },
   (error) => {
+    console.error('API 요청 인터셉터 오류:', error);
     return Promise.reject(error);
   }
 );
@@ -29,10 +33,18 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
   (response) => response,
   async (error) => {
+    console.error('API 응답 오류:', error);
+    
     if (error.response && error.response.status === 401) {
       authService.logout();
       window.location.href = '/login';
     }
+    
+    // 개발 중일 때는 네트워크 오류로 간주하고 더 자세한 로깅
+    if (process.env.NODE_ENV !== 'production' || window.location.hostname.includes('github.io')) {
+      console.warn('API 요청 실패 - 샘플 데이터를 사용합니다.');
+    }
+    
     return Promise.reject(error);
   }
 );

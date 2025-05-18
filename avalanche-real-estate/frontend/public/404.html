@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>AVAX Estate - 페이지를 찾을 수 없음</title>
+  <script type="text/javascript">
+    // GitHub Pages에서 SPA 리다이렉션
+    var pathSegmentsToKeep = 1;
+
+    var l = window.location;
+    var origin = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '');
+    var path = l.pathname.split('/');
+    
+    // URL 경로를 확인하여 처리
+    if (path.length <= 2) {
+      // 기본 경로로 리다이렉션
+      window.location.replace(origin + '/property');
+    } else {
+      // SPA 라우팅 처리
+      var redirectUrl = origin +
+        path.slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
+        path.slice(pathSegmentsToKeep + 1).join('/').replace(/&/g, '~and~') +
+        (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+        l.hash;
+      
+      window.location.replace(redirectUrl);
+    }
+  </script>
+</head>
+<body>
+  <p style="text-align: center; padding-top: 100px; font-family: sans-serif;">
+    페이지를 찾을 수 없습니다. 리다이렉션 중...
+  </p>
+</body>
+</html> 

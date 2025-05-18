@@ -39,11 +39,11 @@ export const properties = [
       tokenPrice: 2000000 // 원
     },
     media: {
-      mainImage: "https://example.com/properties/p1/main.jpg",
+      mainImage: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1000&auto=format&fit=crop",
       images: [
-        "https://example.com/properties/p1/image1.jpg",
-        "https://example.com/properties/p1/image2.jpg",
-        "https://example.com/properties/p1/image3.jpg"
+        "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1000&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1000&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=1000&auto=format&fit=crop"
       ],
       floorPlans: [
         "https://example.com/properties/p1/floorplan1.pdf",
@@ -113,11 +113,11 @@ export const properties = [
       tokenPrice: 1875000 // 원
     },
     media: {
-      mainImage: "https://example.com/properties/p2/main.jpg",
+      mainImage: "https://images.unsplash.com/photo-1604014238170-4def1e4e6fcf?q=80&w=1000&auto=format&fit=crop",
       images: [
-        "https://example.com/properties/p2/image1.jpg",
-        "https://example.com/properties/p2/image2.jpg",
-        "https://example.com/properties/p2/image3.jpg"
+        "https://images.unsplash.com/photo-1604014238170-4def1e4e6fcf?q=80&w=1000&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1565182999561-18d7dc61c393?q=80&w=1000&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1567366783848-6ea8a155113e?q=80&w=1000&auto=format&fit=crop"
       ],
       floorPlans: [
         "https://example.com/properties/p2/floorplan1.pdf"
@@ -186,12 +186,12 @@ export const properties = [
       tokenPrice: 0
     },
     media: {
-      mainImage: "https://example.com/properties/p3/main.jpg",
+      mainImage: "https://images.unsplash.com/photo-1610641818989-c2051b5e2cfd?q=80&w=1000&auto=format&fit=crop",
       images: [
-        "https://example.com/properties/p3/image1.jpg",
-        "https://example.com/properties/p3/image2.jpg",
-        "https://example.com/properties/p3/image3.jpg",
-        "https://example.com/properties/p3/image4.jpg"
+        "https://images.unsplash.com/photo-1610641818989-c2051b5e2cfd?q=80&w=1000&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1600607687644-c7841a4a2a01?q=80&w=1000&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1526786220381-1d21eedf92bf?q=80&w=1000&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1600566752355-35792bedcfea?q=80&w=1000&auto=format&fit=crop"
       ],
       floorPlans: [
         "https://example.com/properties/p3/floorplan1.pdf",

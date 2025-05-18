@@ -4,20 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { startMockServiceWorker } from './mocks/browser';
-import { WalletProvider } from './contexts/WalletContext.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-// 개발 환경에서만 MSW 활성화
-if (process.env.NODE_ENV === 'development') {
-  startMockServiceWorker();
-}
+// 로컬 환경 및 GitHub Pages 환경 모두에서 MSW 활성화
+// GitHub Pages에서는 개발 모드가 아니더라도 MSW를 사용
+startMockServiceWorker();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <WalletProvider>
-      <App />
-    </WalletProvider>
+    <App />
   </React.StrictMode>
 );
 

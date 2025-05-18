@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }) => {
       const data = await authService.register(userData);
       setUser(data.user);
       toast.success('회원가입이 완료되었습니다.');
-      navigate('/');
+      // 리디렉션은 호출 컴포넌트에서 처리
       return data;
     } catch (error) {
       toast.error(error);
@@ -60,7 +60,7 @@ export const AuthProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  }, [navigate]);
+  }, []);
 
   // 로그인
   const login = useCallback(async (email, password) => {
@@ -69,7 +69,7 @@ export const AuthProvider = ({ children }) => {
       const data = await authService.login(email, password);
       setUser(data.user);
       toast.success('로그인이 완료되었습니다.');
-      navigate('/');
+      // 리디렉션은 호출 컴포넌트에서 처리
       return data;
     } catch (error) {
       toast.error(error);
@@ -77,7 +77,7 @@ export const AuthProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  }, [navigate]);
+  }, []);
 
   // 로그아웃
   const logout = useCallback(() => {

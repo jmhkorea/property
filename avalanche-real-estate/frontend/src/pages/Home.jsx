@@ -3,6 +3,44 @@ import { Link } from 'react-router-dom';
 import PropertyList from '../components/PropertyList';
 import apiClient from '../services/api.service';
 
+// 샘플 데이터 가져오기
+import { properties as sampleProperties } from '../mocks/data/property.data';
+
+// 샘플 거래 데이터
+const sampleTransactions = [
+  {
+    _id: "tx1",
+    propertyId: "prop1",
+    propertyName: "강남 럭셔리 오피스 빌딩",
+    amount: 5,
+    price: 10000,
+    timestamp: new Date().toISOString()
+  },
+  {
+    _id: "tx2",
+    propertyId: "prop2",
+    propertyName: "부산 해운대 오션뷰 상업시설",
+    amount: 3,
+    price: 5600,
+    timestamp: new Date(Date.now() - 86400000).toISOString()
+  },
+  {
+    _id: "tx3",
+    propertyId: "prop3", 
+    propertyName: "제주 리조트 단지",
+    amount: 10,
+    price: 28000,
+    timestamp: new Date(Date.now() - 172800000).toISOString()
+  }
+];
+
+// 샘플 통계 데이터
+const sampleStats = {
+  totalProperties: 3,
+  totalVolume: 43600,
+  activeInvestors: 128
+};
+
 const Home = () => {
   const [featuredProperties, setFeaturedProperties] = useState([]);
   const [latestTransactions, setLatestTransactions] = useState([]);
@@ -17,6 +55,16 @@ const Home = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
+        
+        // GitHub Pages 환경에서는 샘플 데이터 사용
+        if (window.location.hostname.includes('github.io')) {
+          console.log('GitHub Pages 환경: 샘플 데이터를 사용합니다.');
+          setFeaturedProperties(sampleProperties);
+          setLatestTransactions(sampleTransactions);
+          setStats(sampleStats);
+          setLoading(false);
+          return;
+        }
         
         // 추천 부동산 정보 가져오기
         const propertiesRes = await apiClient.get('/properties/featured');
@@ -33,6 +81,10 @@ const Home = () => {
         setLoading(false);
       } catch (error) {
         console.error('홈 페이지 데이터 로딩 중 오류 발생:', error);
+        // API 요청 실패 시 샘플 데이터 사용
+        setFeaturedProperties(sampleProperties);
+        setLatestTransactions(sampleTransactions);
+        setStats(sampleStats);
         setLoading(false);
       }
     };
